@@ -6,7 +6,9 @@ import supabase from '../../lib/supabase';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { data, error } = await supabase.from('providers').select('*');
+    // recieve id as param
+    const { id } = req.query;
+    const { data, error } = await supabase.from('totalsaleslive').select('*').eq('productId', id);
     if (error) throw error;
     res.status(200).json(data);
   } catch (error) {

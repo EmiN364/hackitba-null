@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import axios from 'axios';
-import { NextApiHandler } from 'next'
+import { NextApiHandler } from 'next';
+import { useEffect, useState } from 'react';
 
-import supabase from '../lib/supabase'
+import supabase from '../lib/supabase';
 
-import Products from './products';
+import Products from './prods';
 import Providers from './providers';
 
 type Product = {
