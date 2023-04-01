@@ -133,8 +133,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }));
     
     res.status(200).json(products);
-  } catch (error) {
-    console.error('Error fetching products:', error.message);
+  } catch (error : any) {
+    console.error('Error fetching products:', error?.message);
     res.status(500).json({ error: 'Error fetching products' });
   }
 }
