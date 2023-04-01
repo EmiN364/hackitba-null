@@ -32,7 +32,7 @@ function preventDefault(event: React.MouseEvent) {
 
 export default function Orders() {
 
-  const [rows, setRows] = React.useState([])
+  const [rows, setRows] = React.useState<Order[]>([])
 
   // get last sales from supabase db by calling /api/lastSales
   React.useEffect(() => { 
@@ -62,8 +62,8 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
+          {rows.map((row: Order, index: number) => (
+            <TableRow key={index}>
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
