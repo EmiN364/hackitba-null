@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Switch from '@mui/material/Switch';
 import Table from '@mui/material/Table';
@@ -20,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import * as React from 'react';
+import ModalAddProvToProd from '../../templates/ModalAddProvToProd';
 
 interface Data {
   name: string;
@@ -179,10 +181,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
+  selected: readonly string[];
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
+  const { numSelected, selected } = props;
 
   return (
     <Toolbar
@@ -212,6 +215,12 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           component="div"
         >
           Products
+        </Typography>
+      )}
+      {numSelected > 0 && (
+        <Typography title="Delete" sx={{ flex: '1 1 100%'}}>
+          {/* <Link href='/'>Agregar Proveedor</Link> */}
+          <ModalAddProvToProd selected={selected} />
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -365,7 +374,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
         <TableContainer>
           <Table
             sx={{ minWidth: 700 }}

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import supabase from '../lib/supabase';
 
 import Products from './prods';
-import Providers from './providers';
+import Providers from './Providers';
 
 type Product = {
   id: number
