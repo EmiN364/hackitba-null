@@ -181,7 +181,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
-  selected: readonly string[];
+  selected: number[];
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
@@ -244,6 +244,7 @@ export default function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>(DEFAULT_ORDER);
   const [orderBy, setOrderBy] = React.useState<keyof Data>(DEFAULT_ORDER_BY);
   const [selected, setSelected] = React.useState<readonly string[]>([]);
+  const [selectedID, setSelectedID] = React.useState<number[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [visibleRows, setVisibleRows] = React.useState<Data[] | null>(null);
@@ -299,12 +300,15 @@ export default function EnhancedTable() {
     if (event.target.checked) {
       const newSelected = products.map((n) => n.name);
       setSelected(newSelected);
+      const newSelectedID = products.map((n) => n.productId);
+      setSelectedID(newSelectedID);
       return;
     }
     setSelected([]);
+    setSelectedID([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+  const handleClick = (event: React.MouseEvent<unknown>, name: string, id: number) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected: readonly string[] = [];
 
@@ -322,6 +326,11 @@ export default function EnhancedTable() {
     }
 
     setSelected(newSelected);
+    
+    if (selectedID.includes(id))
+      setSelectedID(selectedID.filter((item) => item !== id));
+    else
+      setSelectedID(selectedID.concat(id));
   };
 
   const handleChangePage = React.useCallback(
@@ -374,7 +383,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selected} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selectedID} />
         <TableContainer>
           <Table
             sx={{ minWidth: 700 }}
@@ -398,7 +407,7 @@ export default function EnhancedTable() {
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.name)}
+                        onClick={(event) => handleClick(event, row.name, row.productId)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}

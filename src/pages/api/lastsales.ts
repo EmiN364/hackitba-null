@@ -6,12 +6,12 @@ import supabase from '../../lib/supabase';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { data, error } = await supabase.from('sales').select('*');
+    const { data, error } = await supabase.from('latestsales').select('*');
     if (error) throw error;
     res.status(200).json(data);
   } catch (error) {
     const { message } = error as PostgrestError;
     console.error('Error fetching sales:', message);
-    res.status(500).json({ error: 'Error fetching sales' });
+    res.status(500).json({ error: 'Error fetching products' });
   }
 }

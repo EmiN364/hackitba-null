@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json(data);
   } catch (error) {
     const { message } = error as PostgrestError;
-    console.error('Error fetching products:', message);
-    res.status(500).json({ error: 'Error fetching products' });
+    console.error('Error fetching totalSales:', message);
+    res.status(500).json({ error: 'Error fetching totalSales' });
   }
 }

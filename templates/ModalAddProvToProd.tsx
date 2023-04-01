@@ -65,8 +65,12 @@ const style = {
     p: 4,
 };
 
+type SelectChangeEvent<T = string> =
+  | (Event & { target: { value: T; name: string } })
+  | React.ChangeEvent<HTMLInputElement>;
+
 type ModalProps = {
-  selected : readonly string[];
+  selected : number[];
 };
 
 type Provider = {
@@ -78,18 +82,16 @@ type Provider = {
 const MyModal: React.FC<ModalProps> = (products) => {
   const [providers, setProviders] = React.useState<Provider[]>([]);
   const [selectedProviders, setSelectedProviders] = React.useState<string[]>([]);
-  const [selectedProvider, setSelectedProvider] = React.useState<string>("");
   const [isOpen, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleProviderChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedProvider(event.target.value as string);
-  };
-
-  const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const providersArray = event.target.value as string[];
-    setSelectedProviders(providersArray);
+  const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
+    const providersValue = event.target.value;
+    if (Array.isArray(providersValue)) {
+      const providersArray = providersValue as string[];
+      setSelectedProviders(providersArray);
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -140,7 +142,7 @@ const MyModal: React.FC<ModalProps> = (products) => {
                     <h2 className="mb-1">Add Providers</h2>
                     <FormControl sx={{display: "flex", marginTop: "1rem"}}>
                         <InputLabel id="provider-label">Providers</InputLabel>
-                        <Select
+                        <Select<string[]>
                             label="provider-label"
                             id="provider-select"
                             value={selectedProviders}

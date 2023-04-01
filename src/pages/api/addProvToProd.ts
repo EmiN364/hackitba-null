@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   } catch (error) {
     const { message } = error as PostgrestError;
-    console.error('Error fetching products:', message);
-    res.status(500).json({ error: 'Error fetching products' });
+    console.error('Error adding providers:', message);
+    res.status(500).json({ error: 'Error adding providers' });
   }
 }

@@ -7,34 +7,47 @@ import TableRow from '@mui/material/TableRow';
 import * as React from 'react';
 import Title from './Title';
 
+type Order = {
+  date: string;
+  name: string;
+  shipTo: string;
+  paymentMethod: string;
+  amount: number;
+}
+
 // Generate Order Data
 function createData(
-  id: number,
   date: string,
   name: string,
   shipTo: string,
   paymentMethod: string,
-  amount: number,
+  amount: number
 ) {
-  return { id, date, name, shipTo, paymentMethod, amount };
+  return {  date, name, shipTo, paymentMethod, amount };
 }
-
-const rows = [
-  createData(
-    0,
-    'date',
-    'name',
-    'location',
-    'payment',
-    123.45,
-  )
-];
 
 function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
 }
 
 export default function Orders() {
+
+  const [rows, setRows] = React.useState([])
+
+  // get last sales from supabase db by calling /api/lastSales
+  React.useEffect(() => { 
+    fetch('/api/lastsales')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        data = data.map((sale: any) => {
+            sale.month = new Date(sale.month).toLocaleString('default', { month: 'short', year: 'numeric' })
+            return createData(sale.month, sale.name, "Argentina", "Online", sale.total_sales)
+        })
+        setRows(data)
+      })
+  }, [])
+
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
@@ -45,7 +58,7 @@ export default function Orders() {
             <TableCell>Name</TableCell>
             <TableCell>Ship To</TableCell>
             <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell align="right">Units Sold</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -55,7 +68,7 @@ export default function Orders() {
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+              <TableCell align="right">{`${row.amount}`}</TableCell>
             </TableRow>
           ))}
         </TableBody>

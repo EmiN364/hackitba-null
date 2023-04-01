@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).json({sales: data[0].totalsales, month: data[0].month})
   } catch (error) {
     const { message } = error as PostgrestError;
-    console.error('Error fetching products:', message);
-    res.status(500).json({ error: 'Error fetching products' });
+    console.error('Error fetching sales:', message);
+    res.status(500).json({ error: 'Error fetching sales' });
   }
 }

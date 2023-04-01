@@ -1,8 +1,10 @@
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LayersIcon from '@mui/icons-material/Layers';
 import PeopleIcon from '@mui/icons-material/People';
+import SettingsIcon from '@mui/icons-material/Settings';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -36,11 +38,11 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Analytics" />
     </ListItemButton>
-    <ListItemButton component="a" href="/FutureStock">
+    <ListItemButton component="a" href="/MarketPlace">
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Future Stock Analysis" />
+      <ListItemText primary="Providers Marketplace" />
     </ListItemButton>
   </React.Fragment>
 );
@@ -48,25 +50,19 @@ export const mainListItems = (
 export const secondaryListItems = (
   <React.Fragment>
     <ListSubheader component="div" inset>
-      Saved reports
+      More
     </ListSubheader>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <BusinessCenterIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="My Business" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
-        <AssignmentIcon />
+        <SettingsIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="Settings" />
     </ListItemButton>
   </React.Fragment>
 );
