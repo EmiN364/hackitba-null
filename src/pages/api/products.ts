@@ -64,7 +64,7 @@ function calculateStockPrediction(
     (product) => product.month.includes(currentLastMonth)
   )?.total_sales;
 
-  console.log(lastYearSales, lastYearLastMonthSales, currentLastMonthSales);
+  // console.log(lastYearSales, lastYearLastMonthSales, currentLastMonthSales);
   
 
   if (!lastYearSales || !lastYearLastMonthSales || !currentLastMonthSales)

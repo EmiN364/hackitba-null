@@ -25,14 +25,14 @@ interface Data {
   name: string;
   stock: number;
   productId: number;
-  outofstock: string;
+  outofstock: number;
 }
 
 function createData(
   name: string,
   stock: number,
   productId: number,
-  outofstock: string,
+  outofstock: number,
 ): Data {
   return {
     name,
@@ -97,27 +97,27 @@ const headCells: readonly HeadCell[] = [
     label: 'Name',
   },
   {
-    id: 'stock',
-    numeric: true,
-    disablePadding: false,
-    label: 'Stock',
-  },
-  {
     id: 'productId',
     numeric: true,
     disablePadding: false,
     label: 'Product ID',
   },
   {
+    id: 'stock',
+    numeric: true,
+    disablePadding: false,
+    label: 'Stock',
+  },
+  {
     id: 'outofstock',
     numeric: true,
     disablePadding: false,
-    label: 'Dates Left to Out Of Stock',
+    label: 'Days Left to Out Of Stock'
   },
 ];
 
 const DEFAULT_ORDER = 'asc';
-const DEFAULT_ORDER_BY = 'stock';
+const DEFAULT_ORDER_BY = 'outofstock';
 const DEFAULT_ROWS_PER_PAGE = 10;
 
 interface EnhancedTableProps {
@@ -250,6 +250,8 @@ export default function EnhancedTable() {
       let prods = data.map((product: any) => {
         return createData(product.name, product.stock, product.productid, product.outofstock);
       });
+      console.log(prods);
+      
       setProducts(prods);
     };
     getProducts();
@@ -367,7 +369,7 @@ export default function EnhancedTable() {
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{ minWidth: 700 }}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
           >
@@ -415,8 +417,7 @@ export default function EnhancedTable() {
                         </TableCell>
                         <TableCell align="right">{row.name}</TableCell>
                         <TableCell align="right">{row.stock}</TableCell>
-                        <TableCell align="right">{row.productId}</TableCell>
-                        <TableCell align="right">{row.stock}</TableCell>
+                        <TableCell align="right" style={{ color: row.outofstock < 15 && row.outofstock != -1 ? "orange" : "black" }}>{row.outofstock == -1 ? "Not Available" : row.outofstock}</TableCell>
                       </TableRow>
                     );
                   })
