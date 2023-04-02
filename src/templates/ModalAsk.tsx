@@ -93,11 +93,7 @@ const MyModal: React.FC<ModalProps> = (products) => {
             method: "POST",
             body: JSON.stringify(formData),
           });
-          if (resSend.status === 200) {
-            Swal.fire('Mail sent succesfully!', '', 'success')
-          } else {
-            Swal.fire('Error while sending mail!', '', 'error')
-          }
+          Swal.fire('Mail sent succesfully!', '', 'success')
         }
       })
     }
