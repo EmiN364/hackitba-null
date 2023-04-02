@@ -3,9 +3,9 @@
 ### COMPETICIÓN PRESENCIAL ENTRE EL 31/3 Y EL 2/4 DE 2023
 
 ### Integrantes:
-* Mutz Matias
-* Neme Emilio
-* Ves Losada Tobias
+* Mutz, Matias
+* Neme, Emilio
+* Ves, Losada Tobias
 
 ### **Resumen**:
 
