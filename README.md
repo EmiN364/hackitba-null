@@ -32,8 +32,11 @@ Tanto desde el boton de arriba que dice 'Go to MarketPlace' como desde la pesta�
 
 En la pestaña de Analytics tenemos distintas analiticas que a futuro podrian ser aprvechadas ya que tendriamos informacion relevante de por ejemplo los productos mas rentables, los mas vendidos, etc.
        
+       
+### **Base de Datos**:
 
-
+Para nuestra base de datos utilizamos PostgreSQL a traves del servicio supabase. En la misma tenemos nuestras tablas tanto de productos, proveedores, ventas, y de relacion entre productos y proveedores. A su vez tenemos vistas para obtener la información en el backend de nuestra aplicación. Para la correcta conexion de la misma
+es necesario tener las credenciales en el archivo .env.config.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
