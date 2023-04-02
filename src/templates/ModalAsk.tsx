@@ -62,14 +62,15 @@ const MyModal: React.FC<ModalProps> = (products) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = {
+    let formData = {
       products: products.productNames,
       providers: selectedProviders,
-      stock: stock
+      stock: stock,
+      mail: ''
     };
 
     // Send form data to /api/addProvToProd endpoint
-    const res = await fetch("/api/addRequestBudget", {
+    const res = await fetch("/api/generateMail", {
       method: "POST",
       body: JSON.stringify(formData),
     });
@@ -77,17 +78,28 @@ const MyModal: React.FC<ModalProps> = (products) => {
     handleClose();  // Close modal
 
     if (res.status === 200) {
-      Swal.fire(
-        'Budget Requested Succesfully!',
-        '',
-        'success'
-      )
-    } else {
-      Swal.fire(
-        'Error while requesting budget!',
-        '',
-        'error'
-      )
+      let aux = await res.json(); 
+      Swal.fire({
+        title: 'Mail generated succesfully! Do you want to send it?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Send`,
+        denyButtonText: `Don't send`,
+        text: aux.mail
+      }).then( async (result) => {
+        if (result.isConfirmed) {
+          formData.mail = aux.mail;
+          const resSend = await fetch("/api/addRequestBudget", {
+            method: "POST",
+            body: JSON.stringify(formData),
+          });
+          if (resSend.status === 200) {
+            Swal.fire('Mail sent succesfully!', '', 'success')
+          } else {
+            Swal.fire('Error while sending mail!', '', 'error')
+          }
+        }
+      })
     }
   };
 
