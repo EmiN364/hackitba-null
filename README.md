@@ -28,9 +28,9 @@ Al seleccionar alguno de los productos hay dos opciones. Una esta asociada al bo
 
 Luego en la pestaña de providers tenemos la funcionalidad de agregado y eliminado de registros como en productos. El boton de 'ADD PRODUCT' permite asociar uno o mas proveedores con el producto que se indique.
 
-Tanto desde el boton de arriba que dice 'Go to MarketPlace' como desde la pestaña de la izquierda que dice Providers MarketPlace nos lleva al marketplace de proveedores en donde estan ubicados los distintos productos que ofrecen los proveedores. A futuro, esto va a tener features de poder buscar por productos y filtrar por los parametros que al cliente le parezcan interesantes. Cada una de las tarjetas obtiene la información del producto. Otra feature es quen
+Tanto desde el boton de arriba que dice 'Go to MarketPlace' como desde la pestaña de la izquierda que dice Providers MarketPlace nos lleva al marketplace de proveedores en donde estan ubicados los distintos productos que ofrecen los proveedores. A futuro, esto va a tener features de poder buscar por productos y filtrar por los parametros que al cliente le parezcan interesantes. Cada una de las tarjetas obtiene la información del producto. Otra feature es que en la tarjeta tenga toda la informacion de las pautas de las condiciones de venta. 
 
-
+En la pestaña de Analytics tenemos distintas analiticas que a futuro podrian ser aprvechadas ya que tendriamos informacion relevante de por ejemplo los productos mas rentables, los mas vendidos, etc.
        
 
 
