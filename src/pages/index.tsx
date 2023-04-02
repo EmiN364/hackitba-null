@@ -24,7 +24,7 @@ export default function SignInSide() {
       email: data.get('email'),
       password: data.get('password'),
     }); */
-    window.location.href = '/Dashboard';
+    window.location.href = '/dashboard';
   };
 
   return (
@@ -101,7 +101,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
