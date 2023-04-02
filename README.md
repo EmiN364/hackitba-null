@@ -36,7 +36,7 @@ En la pestaña de Analytics tenemos distintas analiticas que a futuro podrian se
 ### **Base de Datos**:
 
 Para nuestra base de datos utilizamos PostgreSQL a traves del servicio supabase. En la misma tenemos nuestras tablas tanto de productos, proveedores, ventas, y de relacion entre productos y proveedores. A su vez tenemos vistas para obtener la información en el backend de nuestra aplicación. Para la correcta conexion de la misma
-es necesario tener las credenciales en el archivo .env.config.
+es necesario tener las credenciales en el archivo .env.local.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
