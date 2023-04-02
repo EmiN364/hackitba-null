@@ -26,6 +26,7 @@ import * as React from 'react';
 import Swal from 'sweetalert2';
 import ModalAddProd from '../../templates/ModalAddProd';
 import ModalAddProvToProd from '../../templates/ModalAddProvToProd';
+import ModalAsk from '../../templates/ModalAsk';
 
 interface Data {
   name: string;
@@ -255,6 +256,11 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           <ModalAddProd />
         </Typography>
       ) }
+      {numSelected > 0 && (
+        <Typography title="Ask for Budgets" sx={{ flex: '1 1 100%'}}>
+          <ModalAsk selected={selected} />
+        </Typography>
+      )}
       {numSelected === 1 && (
         <Tooltip title="Edit" >
           <IconButton>
