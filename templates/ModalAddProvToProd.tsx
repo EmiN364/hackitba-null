@@ -100,9 +100,6 @@ const MyModal: React.FC<ModalProps> = (products) => {
       providers: selectedProviders,
       products: products.selected
     };
-    console.log(formData);
-    debugger;
-    
     
     // Send form data to /api/addProvToProd endpoint
     const res = await fetch("/api/addProvToProd", {
@@ -135,7 +132,7 @@ const MyModal: React.FC<ModalProps> = (products) => {
 
   return (
     <div>
-    <Button onClick={handleOpen}>Agregar Proveedor</Button>
+    <Button onClick={handleOpen}>Add Provider</Button>
         <Modal open={isOpen} onClose={handleClose}>
             <Box sx={style}>
                 <form onSubmit={handleSubmit}>

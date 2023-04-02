@@ -49,7 +49,7 @@ export default function Chart() {
 
   return (
     <Fragment>
-      <Title>Today</Title>
+      <Title>Sales per Month</Title>
       <ResponsiveContainer>
         <LineChart
           data={sales}

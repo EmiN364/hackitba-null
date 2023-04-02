@@ -18,10 +18,10 @@ import Typography from '@mui/material/Typography';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import * as React from 'react';
 import Copyright from '../../templates/copyright';
+import { mainListItems, secondaryListItems } from '../../templates/listItems';
 import Chart from './dashboard/Chart';
 import Deposits from './dashboard/Deposits';
 import Orders from './dashboard/Orders';
-import { mainListItems, secondaryListItems } from './dashboard/listItems';
 
 const drawerWidth: number = 240;
 

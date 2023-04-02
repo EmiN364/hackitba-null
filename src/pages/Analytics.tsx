@@ -19,10 +19,10 @@ import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import * as React from 'react';
 import PieGraph from '../../templates/charts/piechart';
 import Copyright from '../../templates/copyright';
+import { mainListItems, secondaryListItems } from '../../templates/listItems';
 import Chart from './dashboard/Chart';
 import Deposits from './dashboard/Deposits';
 import Orders from './dashboard/Orders';
-import { mainListItems, secondaryListItems } from './dashboard/listItems';
 
 const drawerWidth: number = 240;
 

@@ -21,6 +21,7 @@ import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import * as React from 'react';
+import ModalAddProd from '../../templates/ModalAddProd';
 import ModalAddProvToProd from '../../templates/ModalAddProvToProd';
 
 interface Data {
@@ -217,12 +218,16 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           Products
         </Typography>
       )}
-      {numSelected > 0 && (
+      {numSelected > 0 ? (
         <Typography title="Delete" sx={{ flex: '1 1 100%'}}>
           {/* <Link href='/'>Agregar Proveedor</Link> */}
           <ModalAddProvToProd selected={selected} />
         </Typography>
-      )}
+      ) : (
+        <Typography title="Add Product" sx={{ flex: '1 1 100%'}}>
+          <ModalAddProd />
+        </Typography>
+      ) }
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton>
