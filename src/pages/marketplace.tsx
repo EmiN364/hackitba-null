@@ -20,12 +20,12 @@ import * as React from 'react';
 import Copyright from '../templates/copyright';
 
 const cards = [
-    {id: 1, header: "Chicles", description:"Entrega en menos de 48hs en AMBA.", rating:4.2, image: "https://www.infobae.com/new-resizer/kIiXaM-8OgXj4Yff7JA0eSttEWM=/992x558/filters:format(webp):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/AJU6WJWSENGV7AJXJZY5H5JNFQ"},
-    {id: 2, header: "Nesquik", description:"", rating:5.0, image: "https://www.casa-segal.com/wp-content/uploads/2020/03/nesquik-cacao-180g-almacen-casa-segal-mendoza.jpg "},
-    {id: 3, header: "Gaseosa Cola", description:"", rating:3.2, image: "https://peru21.pe/resizer/ch78K1r0gMkadc2p-9n4IEHrE3k=/580x330/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/HOOXFBCSCNGGTFRZ5RNTBLBVW4.jpg"},
-    {id: 4, header: "Caramelos", description:"", rating:4.0, image: "https://www.leotertenerife.com/wp-content/uploads/2020/07/historia-y-origen-caramelos.jpg "},
-    {id: 5, header: "Chupetines", description:"", rating:2.5, image: "https://distribuidoralaprimera.com.ar/files/chupetines2-84603.jpg"},
-    {id: 6, header: "Gomitas", description:"", rating:1.5, image: "https://lascameliaslp.com.ar/wp-content/uploads/YADODFY5JVB7XJ2SIEDP4CN4TM.png"},];
+    {id: 1, header: "Chicles", description:"Carlos Alberto. Entrega en menos de 48hs en AMBA.", rating:4.2, image: "https://www.infobae.com/new-resizer/kIiXaM-8OgXj4Yff7JA0eSttEWM=/992x558/filters:format(webp):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/AJU6WJWSENGV7AJXJZY5H5JNFQ"},
+    {id: 2, header: "Nesquik", description:"Nestle. Cacao en Polvo favorito en Argentina.", rating:5.0, image: "https://www.casa-segal.com/wp-content/uploads/2020/03/nesquik-cacao-180g-almacen-casa-segal-mendoza.jpg "},
+    {id: 3, header: "Gaseosa Cola", description:"Mariano Perez. Vendedor de Gaseosas Cola.", rating:3.2, image: "https://peru21.pe/resizer/ch78K1r0gMkadc2p-9n4IEHrE3k=/580x330/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/HOOXFBCSCNGGTFRZ5RNTBLBVW4.jpg"},
+    {id: 4, header: "Caramelos", description:"Luisa Morales. Proveedor de todo tipo de caramelos masticables. Envios en 48hs.", rating:4.0, image: "https://www.leotertenerife.com/wp-content/uploads/2020/07/historia-y-origen-caramelos.jpg "},
+    {id: 5, header: "Chupetines", description:"Jose Musk. Comerciante de chupetines en toda la prov. de Bs. As.", rating:2.5, image: "https://distribuidoralaprimera.com.ar/files/chupetines2-84603.jpg"},
+    {id: 6, header: "Gomitas", description:"Gomitas S.A. Vendedor nacional de gomitas. Entregas en una semana.", rating:1.5, image: "https://lascameliaslp.com.ar/wp-content/uploads/YADODFY5JVB7XJ2SIEDP4CN4TM.png"},];
 
 const theme = createTheme();
 
@@ -101,8 +101,8 @@ export default function Album() {
                     <Rating name="read-only" value={card?.rating ?? 5.0} readOnly />
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Button size="small">Contact</Button>
+                    <Button size="small">More Info</Button>
                   </CardActions>
                 </Card>
               </Grid>

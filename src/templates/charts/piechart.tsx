@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
-import Title from '../../src/pages/dashboard/Title';
+import Title from '../../pages/dashboard/Title';
 
 export interface GeometrySector {
     cx?: number;
