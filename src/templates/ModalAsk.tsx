@@ -5,6 +5,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 import React from "react";
 import Swal from "sweetalert2";
 
@@ -26,12 +27,14 @@ type SelectChangeEvent<T = string> =
 
 type ModalProps = {
   selected : number[];
+  productNames : readonly string[]
 };
 
 type Provider = {
     id: string;
     name: string;
-    email: string
+    email: string;
+    providerId: number;
 }
 
 const MyModal: React.FC<ModalProps> = (products) => {
@@ -41,23 +44,32 @@ const MyModal: React.FC<ModalProps> = (products) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [stock, setStock] = React.useState({});
+
   const handleSelectChange = (event: SelectChangeEvent<string[]>) => {
     const providersValue = event.target.value;
     if (Array.isArray(providersValue)) {
       const providersArray = providersValue as string[];
+      console.log(providersArray);
+      
       setSelectedProviders(providersArray);
     }
+  };
+
+  const handleStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStock({ ...stock, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = {
+      products: products.productNames,
       providers: selectedProviders,
-      products: products.selected
+      stock: stock
     };
-    
+
     // Send form data to /api/addProvToProd endpoint
-    const res = await fetch("/api/addProvToProd", {
+    const res = await fetch("/api/addRequestBudget", {
       method: "POST",
       body: JSON.stringify(formData),
     });
@@ -66,13 +78,13 @@ const MyModal: React.FC<ModalProps> = (products) => {
 
     if (res.status === 200) {
       Swal.fire(
-        'Providers added correctly to products!',
+        'Budget Requested Succesfully!',
         '',
         'success'
       )
     } else {
       Swal.fire(
-        'Error adding providers to products!',
+        'Error while requesting budget!',
         '',
         'error'
       )
@@ -80,10 +92,12 @@ const MyModal: React.FC<ModalProps> = (products) => {
   };
 
   React.useEffect(() => {
-    fetch("/api/providers")
+    fetch(`/api/providersByProduct`,
+      {method: "POST", body: JSON.stringify(products.selected)
+    })
       .then((response) => response.json())
       .then((data) => setProviders(data));
-  }, []);
+  }, [products.selected, isOpen]);
 
   return (
     <div>
@@ -102,11 +116,26 @@ const MyModal: React.FC<ModalProps> = (products) => {
                             multiple={true}
                         >
                             {providers.map((provider) => (
-                                <MenuItem key={provider.name} value={provider.id}>
+                                <MenuItem key={provider.name} value={provider.providerId}>
                                     {provider.name}
                                 </MenuItem>
                             ))}
                         </Select>
+                        {/* Iterate products.selected, and for each product create a textfield */}
+                        {products.productNames.map((product) => (
+                          <TextField
+                            key={product}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name={`stock-${product}`}
+                            label={`Stock for product ${product}`}
+                            type="number"
+                            id={`stock-${product}`}
+                            autoComplete="current-stock"
+                            onChange={handleStockChange}
+                          />
+                        ))}
                     </FormControl>
                     <Button type="submit">Submit</Button>
                 </form>

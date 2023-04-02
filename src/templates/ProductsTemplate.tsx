@@ -187,10 +187,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 interface EnhancedTableToolbarProps {
   numSelected: number;
   selected: number[];
+  productNames: readonly string[];
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected, selected } = props;
+  const { numSelected, selected, productNames } = props;
 
   const handleDelete = async () => {
     Swal.fire({
@@ -258,7 +259,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       ) }
       {numSelected > 0 && (
         <Typography title="Ask for Budgets" sx={{ flex: '1 1 100%'}}>
-          <ModalAsk selected={selected} />
+          <ModalAsk selected={selected} productNames={productNames} />
         </Typography>
       )}
       {numSelected === 1 && (
@@ -424,11 +425,11 @@ export default function EnhancedTable() {
   };
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
-
+  
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} selected={selectedID} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selectedID} productNames={selected} />
         <TableContainer>
           <Table
             sx={{ minWidth: 700 }}
