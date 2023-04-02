@@ -1,4 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
@@ -20,7 +21,9 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
+import axios from 'axios';
 import * as React from 'react';
+import Swal from 'sweetalert2';
 import ModalAddProd from '../../templates/ModalAddProd';
 import ModalAddProvToProd from '../../templates/ModalAddProvToProd';
 
@@ -188,6 +191,31 @@ interface EnhancedTableToolbarProps {
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
   const { numSelected, selected } = props;
 
+  const handleDelete = async () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        selected.forEach(async (id) => {
+          await axios.delete(`http://localhost:3000/api/products/${id}`);
+        });
+        Swal.fire(
+          'Deleted!',
+          'Your product has been deleted.',
+          'success'
+        ).then(() => {
+          window.location.reload();
+        })
+      }
+    })
+  };
+
   return (
     <Toolbar
       sx={{
@@ -219,8 +247,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Typography>
       )}
       {numSelected > 0 ? (
-        <Typography title="Delete" sx={{ flex: '1 1 100%'}}>
-          {/* <Link href='/'>Agregar Proveedor</Link> */}
+        <Typography title="Add Provider" sx={{ flex: '1 1 100%'}}>
           <ModalAddProvToProd selected={selected} />
         </Typography>
       ) : (
@@ -228,9 +255,16 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           <ModalAddProd />
         </Typography>
       ) }
+      {numSelected === 1 && (
+        <Tooltip title="Edit" >
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+      )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>

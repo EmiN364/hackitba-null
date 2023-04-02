@@ -20,6 +20,7 @@ import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import * as React from 'react';
+import ModalAddProd from '../../templates/ModalAddProd';
 
 interface Data {
   name: string;
@@ -203,6 +204,11 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           component="div"
         >
           Providers
+        </Typography>
+      )}
+      {numSelected > 0 && (
+        <Typography title="Add Product" sx={{ flex: '1 1 100%'}}>
+          <ModalAddProd />
         </Typography>
       )}
       {numSelected > 0 ? (

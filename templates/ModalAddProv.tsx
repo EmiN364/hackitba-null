@@ -35,29 +35,25 @@ const MyModal: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [productName, setProductName] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [stock, setStock] = React.useState(0);
+  const [providerName, setProviderName] = React.useState('');
+  const [email, setEmail] = React.useState('');
 
-  const handleProductNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setProductName(event.target.value);
+  const handleProviderNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setProviderName(event.target.value);
   };
-  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(event.target.value);
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
   };
-  const handleStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setStock(Number(event.target.value));
-  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = {
-        name: productName,
-        description: description,
-        stock: stock
+        name: providerName,
+        email: email
     };
     
     // Send form data to /api/addProvToProd endpoint
-    const res = await fetch("/api/productAdd", {
+    const res = await fetch("/api/providerAdd", {
       method: "POST",
       body: JSON.stringify(formData),
     });
@@ -66,14 +62,14 @@ const MyModal: React.FC = () => {
 
     if (res.status === 200) {
       Swal.fire(
-        'Product added correctly!',
+        'Provider added correctly!',
         '',
         'success'
       )
       window.location.reload();
     } else {
       Swal.fire(
-        'Error adding product!',
+        'Error adding provider!',
         '',
         'error'
       )
@@ -82,44 +78,33 @@ const MyModal: React.FC = () => {
 
   return (
     <>
-    <Button onClick={handleOpen}>Add Product</Button>
+    <Button onClick={handleOpen}>Add Provider</Button>
         <Modal open={isOpen} onClose={handleClose}>
         <Box component="form" onSubmit={handleSubmit} sx={style}>
               <Typography sx={{color:'black', textDecorationLine:'underline'}}>
-                Add Product
+                Add Provider
               </Typography>
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                id="productName"
-                label="Product Name"
-                name="productName"
-                autoComplete="productName"
+                id="providerName"
+                label="Provider Name"
+                name="providerName"
+                autoComplete="providerName"
                 autoFocus
-                onChange={handleProductNameChange}
+                onChange={handleProviderNameChange}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="description"
-                label="Product Description"
+                name="email"
+                label="Provider Email"
                 type="text"
-                id="description"
-                autoComplete="current-description"
-                onChange={handleDescriptionChange}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="stock"
-                label="Product Stock"
-                type="number"
-                id="stock"
-                autoComplete="current-stock"
-                onChange={handleStockChange}
+                id="email"
+                autoComplete="current-email"
+                onChange={handleEmailChange}
               />
               <Button
                 type="submit"
