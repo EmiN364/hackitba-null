@@ -14,31 +14,31 @@ import * as React from 'react';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton component="a" href="/Dashboard">
+    <ListItemButton component="a" href="/dashboard">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton component="a" href="/Products">
+    <ListItemButton component="a" href="/products">
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Products" />
     </ListItemButton>
-    <ListItemButton component="a" href="/Providers">
+    <ListItemButton component="a" href="/providers">
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Providers" />
     </ListItemButton>
-    <ListItemButton component="a" href="/Analytics">
+    <ListItemButton component="a" href="/analytics">
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Analytics" />
     </ListItemButton>
-    <ListItemButton component="a" href="/MarketPlace">
+    <ListItemButton component="a" href="/marketplace">
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>

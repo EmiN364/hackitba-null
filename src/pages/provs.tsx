@@ -207,7 +207,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         </Typography>
       )}
       {numSelected > 0 && (
-        <Typography title="Add Product" sx={{ flex: '1 1 100%'}}>
+        <Typography title="Add Provider" sx={{ flex: '1 1 100%'}}>
           <ModalAddProd />
         </Typography>
       )}

@@ -69,7 +69,7 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained" href="/Dashboard">Back to Dashboard</Button>
+              <Button variant="contained" href="/dashboard">Back to Dashboard</Button>
               <Button variant="outlined">Search &nbsp;<SearchIcon></SearchIcon></Button>
             </Stack>
           </Container>

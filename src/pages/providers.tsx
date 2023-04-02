@@ -151,7 +151,7 @@ function DashboardContent() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              <Link href="/MarketPlace" sx={{marginBottom:"2rem", display:"block"}}>Go to MarketPlace</Link>
+              <Link href="/marketplace" sx={{marginBottom:"2rem", display:"block"}}>Go to MarketPlace</Link>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
