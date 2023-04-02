@@ -17,7 +17,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import Copyright from '../../templates/copyright';
+import Copyright from '../templates/copyright';
 
 const cards = [
     {id: 1, header: "Chicles", description:"Entrega en menos de 48hs en AMBA.", rating:4.2, image: "https://www.infobae.com/new-resizer/kIiXaM-8OgXj4Yff7JA0eSttEWM=/992x558/filters:format(webp):quality(85)/arc-anglerfish-arc2-prod-infobae.s3.amazonaws.com/public/AJU6WJWSENGV7AJXJZY5H5JNFQ"},

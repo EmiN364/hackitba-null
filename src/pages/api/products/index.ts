@@ -2,7 +2,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import supabase from '../../lib/supabase';
+import supabase from '../../../lib/supabase';
 
 type totalSales = {
   productId: number;

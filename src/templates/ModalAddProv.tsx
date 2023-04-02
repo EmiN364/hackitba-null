@@ -53,7 +53,7 @@ const MyModal: React.FC = () => {
     };
     
     // Send form data to /api/addProvToProd endpoint
-    const res = await fetch("/api/providerAdd", {
+    const res = await fetch("/api/providers/add", {
       method: "POST",
       body: JSON.stringify(formData),
     });

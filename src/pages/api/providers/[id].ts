@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const { id } = req.query
 
             const { data, error } = await supabase
-                .from('products')
+                .from('providers')
                 .delete()
                 .eq('id', id);
         
@@ -22,8 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
         } catch (error) {
             const { message } = error as PostgrestError;
-            console.error('Error deleting product:', message);
-            res.status(500).json({ error: 'Error deleting product' });
+            console.error('Error deleting provider:', message);
+            res.status(500).json({ error: 'Error deleting provider' });
         }
     } else {
         res.status(405).json({ error: 'Method not allowed' });

@@ -1,9 +1,11 @@
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Switch from '@mui/material/Switch';
 import Table from '@mui/material/Table';
@@ -19,24 +21,31 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
+import axios from 'axios';
 import * as React from 'react';
-import ModalAddProd from '../../templates/ModalAddProd';
+import Swal from 'sweetalert2';
+import ModalAddProd from './ModalAddProd';
+import ModalAddProvToProd from './ModalAddProvToProd';
+import ModalAsk from './ModalAsk';
 
 interface Data {
   name: string;
-  providerId: number;
-  email: string;
+  stock: number;
+  productId: number;
+  outofstock: number;
 }
 
 function createData(
   name: string,
-  providerId: number,
-  email: string,
+  stock: number,
+  productId: number,
+  outofstock: number,
 ): Data {
   return {
     name,
-    providerId,
-    email,
+    stock,
+    productId,
+    outofstock,
   };
 }
 
@@ -95,21 +104,27 @@ const headCells: readonly HeadCell[] = [
     label: 'Name',
   },
   {
-    id: 'providerId',
+    id: 'productId',
     numeric: true,
     disablePadding: false,
-    label: 'Provider ID',
+    label: 'Product ID',
   },
   {
-    id: 'email',
+    id: 'stock',
     numeric: true,
     disablePadding: false,
-    label: 'Email',
+    label: 'Stock',
+  },
+  {
+    id: 'outofstock',
+    numeric: true,
+    disablePadding: false,
+    label: 'Days Left to Out Of Stock'
   },
 ];
 
 const DEFAULT_ORDER = 'asc';
-const DEFAULT_ORDER_BY = 'providerId';
+const DEFAULT_ORDER_BY = 'outofstock';
 const DEFAULT_ROWS_PER_PAGE = 10;
 
 interface EnhancedTableProps {
@@ -139,7 +154,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all providers',
+              'aria-label': 'select all products',
             }}
           />
         </TableCell>
@@ -171,10 +186,36 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
+  selected: number[];
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props;
+  const { numSelected, selected } = props;
+
+  const handleDelete = async () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        selected.forEach(async (id) => {
+          await axios.delete(`http://localhost:3000/api/products/${id}`);
+        });
+        Swal.fire(
+          'Deleted!',
+          'Your product has been deleted.',
+          'success'
+        ).then(() => {
+          window.location.reload();
+        })
+      }
+    })
+  };
 
   return (
     <Toolbar
@@ -203,17 +244,33 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
           id="tableTitle"
           component="div"
         >
-          Providers
-        </Typography>
-      )}
-      {numSelected > 0 && (
-        <Typography title="Add Provider" sx={{ flex: '1 1 100%'}}>
-          <ModalAddProd />
+          Products
         </Typography>
       )}
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Typography title="Add Provider" sx={{ flex: '1 1 100%'}}>
+          <ModalAddProvToProd selected={selected} />
+        </Typography>
+      ) : (
+        <Typography title="Add Product" sx={{ flex: '1 1 100%'}}>
+          <ModalAddProd />
+        </Typography>
+      ) }
+      {numSelected > 0 && (
+        <Typography title="Ask for Budgets" sx={{ flex: '1 1 100%'}}>
+          <ModalAsk selected={selected} />
+        </Typography>
+      )}
+      {numSelected === 1 && (
+        <Tooltip title="Edit" >
           <IconButton>
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+      )}
+      {numSelected > 0 ? (
+        <Tooltip title="Delete">
+          <IconButton onClick={handleDelete}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -232,31 +289,31 @@ export default function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>(DEFAULT_ORDER);
   const [orderBy, setOrderBy] = React.useState<keyof Data>(DEFAULT_ORDER_BY);
   const [selected, setSelected] = React.useState<readonly string[]>([]);
+  const [selectedID, setSelectedID] = React.useState<number[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [visibleRows, setVisibleRows] = React.useState<Data[] | null>(null);
   const [rowsPerPage, setRowsPerPage] = React.useState(DEFAULT_ROWS_PER_PAGE);
   const [paddingHeight, setPaddingHeight] = React.useState(0);
-  const [providers, setProviders] = React.useState<Data[]>([]);
+  const [products, setProducts] = React.useState<Data[]>([]);
 
-  // get providers from api
+  // get products from api
   React.useEffect(() => {
-    const getProviders = async () => {
-      const response = await fetch('/api/providers');
+    const getProducts = async () => {
+      const response = await fetch('/api/products');
       const data = await response.json();
-      let prods = data.map((provider: any) => {
-        return createData(provider.name, provider.id, provider.email);
+      let prods = data.map((product: any) => {
+        return createData(product.name, product.stock, product.id, product.outofstock);
       });
-      console.log(prods);
       
-      setProviders(prods);
+      setProducts(prods);
     };
-    getProviders();
+    getProducts();
   }, []);
 
   React.useEffect(() => {
     let rowsOnMount = stableSort(
-      providers,
+      products,
       getComparator(DEFAULT_ORDER, DEFAULT_ORDER_BY),
     );
     rowsOnMount = rowsOnMount.slice(
@@ -265,7 +322,7 @@ export default function EnhancedTable() {
     );
 
     setVisibleRows(rowsOnMount);
-  }, [providers]);
+  }, [products]);
 
   const handleRequestSort = React.useCallback(
     (event: React.MouseEvent<unknown>, newOrderBy: keyof Data) => {
@@ -274,26 +331,29 @@ export default function EnhancedTable() {
       setOrder(toggledOrder);
       setOrderBy(newOrderBy);
 
-      const sortedRows = stableSort(providers, getComparator(toggledOrder, newOrderBy));
+      const sortedRows = stableSort(products, getComparator(toggledOrder, newOrderBy));
       const updatedRows = sortedRows.slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       );
       setVisibleRows(updatedRows);
     },
-    [order, orderBy, page, rowsPerPage, providers],
+    [order, orderBy, page, rowsPerPage, products],
   );
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = providers.map((n) => n.name);
+      const newSelected = products.map((n) => n.name);
       setSelected(newSelected);
+      const newSelectedID = products.map((n) => n.productId);
+      setSelectedID(newSelectedID);
       return;
     }
     setSelected([]);
+    setSelectedID([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
+  const handleClick = (event: React.MouseEvent<unknown>, name: string, id: number) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected: readonly string[] = [];
 
@@ -311,27 +371,32 @@ export default function EnhancedTable() {
     }
 
     setSelected(newSelected);
+    
+    if (selectedID.includes(id))
+      setSelectedID(selectedID.filter((item) => item !== id));
+    else
+      setSelectedID(selectedID.concat(id));
   };
 
   const handleChangePage = React.useCallback(
     (event: unknown, newPage: number) => {
       setPage(newPage);
 
-      const sortedRows = stableSort(providers, getComparator(order, orderBy));
+      const sortedRows = stableSort(products, getComparator(order, orderBy));
       const updatedRows = sortedRows.slice(
         newPage * rowsPerPage,
         newPage * rowsPerPage + rowsPerPage,
       );
       setVisibleRows(updatedRows);
 
-      // Avoid a layout jump when reaching the last page with empty providers.
+      // Avoid a layout jump when reaching the last page with empty products.
       const numEmptyRows =
-        newPage > 0 ? Math.max(0, (1 + newPage) * rowsPerPage - providers.length) : 0;
+        newPage > 0 ? Math.max(0, (1 + newPage) * rowsPerPage - products.length) : 0;
 
       const newPaddingHeight = (dense ? 33 : 53) * numEmptyRows;
       setPaddingHeight(newPaddingHeight);
     },
-    [order, orderBy, dense, rowsPerPage, providers],
+    [order, orderBy, dense, rowsPerPage, products],
   );
 
   const handleChangeRowsPerPage = React.useCallback(
@@ -341,7 +406,7 @@ export default function EnhancedTable() {
 
       setPage(0);
 
-      const sortedRows = stableSort(providers, getComparator(order, orderBy));
+      const sortedRows = stableSort(products, getComparator(order, orderBy));
       const updatedRows = sortedRows.slice(
         0 * updatedRowsPerPage,
         0 * updatedRowsPerPage + updatedRowsPerPage,
@@ -351,7 +416,7 @@ export default function EnhancedTable() {
       // There is no layout jump to handle on the first page.
       setPaddingHeight(0);
     },
-    [order, orderBy, providers],
+    [order, orderBy, products],
   );
 
   const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -363,7 +428,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} selected={selectedID} />
         <TableContainer>
           <Table
             sx={{ minWidth: 700 }}
@@ -376,7 +441,7 @@ export default function EnhancedTable() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={providers.length}
+              rowCount={products.length}
             />
             <TableBody>
               {visibleRows
@@ -387,7 +452,7 @@ export default function EnhancedTable() {
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.name)}
+                        onClick={(event) => handleClick(event, row.name, row.productId)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
@@ -412,8 +477,9 @@ export default function EnhancedTable() {
                         >
                           {row.name}
                         </TableCell>
-                        <TableCell align="right">{row.providerId}</TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
+                        <TableCell align="right">{row.productId}</TableCell>
+                        <TableCell align="right">{row.stock}</TableCell>
+                        <TableCell align="right" style={{ color: row.outofstock < 15 && row.outofstock != -1 ? "orange" : "black" }}>{row.outofstock == -1 ? "Not Available" : row.outofstock}</TableCell>
                       </TableRow>
                     );
                   })
@@ -433,7 +499,7 @@ export default function EnhancedTable() {
         <TablePagination
           rowsPerPageOptions={[10, 25, 50, 100, 250, 500]}
           component="div"
-          count={providers.length}
+          count={products.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

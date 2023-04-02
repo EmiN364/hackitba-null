@@ -17,9 +17,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import * as React from 'react';
-import Copyright from '../../templates/copyright';
-import { mainListItems, secondaryListItems } from '../../templates/listItems';
-import Provs from './provs';
+import Provs from '../templates/ProvidersTemplate';
+import Copyright from '../templates/copyright';
+import { mainListItems, secondaryListItems } from '../templates/listItems';
 
 const drawerWidth: number = 240;
 

@@ -12,7 +12,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import Copyright from '../../templates/copyright';
+import Copyright from '../templates/copyright';
 
 const theme = createTheme();
 
