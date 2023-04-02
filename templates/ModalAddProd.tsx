@@ -81,7 +81,7 @@ const MyModal: React.FC = () => {
   };
 
   return (
-    <div>
+    <>
     <Button onClick={handleOpen}>Add Product</Button>
         <Modal open={isOpen} onClose={handleClose}>
         <Box component="form" onSubmit={handleSubmit} sx={style}>
@@ -131,7 +131,7 @@ const MyModal: React.FC = () => {
               </Button>
             </Box>
         </Modal>
-    </div>
+    </>
   );
 };
 
