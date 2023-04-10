@@ -1,0 +1,72 @@
+Ideas HackITBA:
+
+Chat de ventas con IA
+
+Analisis de datos historico, para ver cuando hay q renovar stock. CLAVEEEE. Ver en cuanto te vas a quedar sin, predecir.
+Con tiempo para pedirlo
+que pueda comparar proveedores
+
+Ver si el precio se esta quedando atras, viendo inflacion y aumento de precios varios
+Que este analizando costos fijos y variables, salarios, ventas, servicios
+
+Recomendaciones financieras de si en tanto tiempo, no necesitas la plata, q la metas en un plazo fijo / inviertas	
+
+Sumar estadisticas de todo, graficos y eso
+Usar IA que genere ideas para mejorar ventas y eso
+
+Lectura de datos mas automatica
+
+IA que le digas quiero algo, entonces arma correos para solicitar presupuestos
+
+Conectar notifiaciones con WPP o algo asi
+
+CUIDADO: IA mala con calculos
+
+Que sirva para planificacion de proyectos, tiempos de cada tarea, ir preparando la siguiente antes de q termine la anterior
+
+Generar ideas de marketing para mejorar ventas
+Campañas de marketing (mails, posteos)
+
+Conectar con la parte de proyectos, algo para que en tiempo real se pueda ir viendo en q etapa estamos
+
+Algo q te haga presupuestos, calculo a futuros
+
+proveedores puedan acceder a la app, carguen a mismo formato csv, mandarle link de un form de la web
+texto
+pdf converter
+excel a csv y leerlo
+mandarle link para q complete el formato (automatico con un ej o manual)
+
+aumento estimado mes a mes de los provedores
+usar ars o usd? inflacion
+buscar cotiz o inflacion del moment
+
+ver con fechas de vencimiento
+
+Marketplace de proveedores
+
+1er min:
+producto y problema principal que resuelve
+buscar una buena frase (spotify para videos) (el sistema de manejo de stock que te da acceso a nuevos proveedores) q te expande el mundo de proveedores
+meter chamuyo de ai
+
+Desp problema-solucion
+Anecdota personal
+haciamos producto, proveedor subio mucho los precios o dejo de producir
+
+nuestra solucion
+listar features
+como solucionamos el problema
+slides simples con palabras
+y desp mostrar views
+Side by side (antiguo con ahora)
+
+servicio especial para cada cliente de cargar sus datos a la web, y ayudarlos a mejorar su forma de manejo de datos
+absorssion y onboarding
+
+Proveedores urgentes: miles de negocios, comercios y empresas tienen problema de abastecimiento. Provedores no pueden cumplir, encontrarlo de manera rapida y entrega de forma inmediata. Salir a buscar, perder tiempo, pedir cotiz, buscar en internet. Nuestra plataforma lo q ayuda es a estas personas conectarlas con proveedores q entregan de manera inmediata. empresas puedan seguir vendiendo/fabricanod, y esten tranquilas ya q cuentan con un sistema q se los puede resolver. 
+Reseñas a proveedores.
+Entrega inmediata, o entrega de cierto stock. Ayuda a los comerciantes a pedir cotiz de inmediata, o productos q son dificil de encontrar de forma urgente o cantidad o cercania o entrega. 
+Clave haber encontrado un buen problema y una buena solucion. 
+
+Q se ahorren tiempo y dinero, horas y horas de busqueda y de frustacion.
